@@ -1,0 +1,67 @@
+{
+  "name": "csv-mapper",
+  "version": "1.0.0",
+  "description": "Desktop CSV processor — key_hash + content_hash per row, handles files up to 2GB",
+  "main": "electron/main.js",
+  "author": "CSV Mapper",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "sample": "node scripts/generate-sample.js",
+    "test:rates-sync": "node scripts/test-section-sync.js",
+
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --win",
+    "dist:portable": "electron-builder --win portable",
+    "dist:installer": "electron-builder --win nsis"
+  },
+  "build": {
+    "appId": "com.csvmapper.app",
+    "productName": "CSV Mapper",
+    "copyright": "Copyright © 2026",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "electron/**/*",
+      "src/**/*",
+      "package.json"
+    ],
+    "extraMetadata": {
+      "main": "electron/main.js"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "CSV Mapper",
+      "installerLanguages": ["it_IT", "en_US"],
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "${productName}-Portable-${version}.${ext}"
+    }
+  },
+  "devDependencies": {
+    "electron": "^34.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "dependencies": {
+    "csv-parse": "^5.6.0"
+  }
+}

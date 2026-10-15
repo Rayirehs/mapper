@@ -1,0 +1,13 @@
+from_zip,to_zip,destination,from_weight,to_weight,from_vol,to_vol,lead_time,revenue,Transporta,dhl_service_code
+1000000,1999999,Sao Paulo capital,0,1,0,10000,2,25.90,Transporta SP,EXP
+1000000,1999999,Sao Paulo capital,1,5,0,10000,2,39.50,Transporta SP,EXP
+20000000,28999999,Rio de Janeiro,0,1,0,10000,3,28.00,Transporta RJ,EXP
+70000000,72799999,Brasilia DF,0,1,0,10000,4,32.00,Transporta DF,EXP
+72800000,72999999,Goias entorno,0,1,0,10000,4,31.00,Transporta GO,EXP
+69000000,69299999,Amazonas,0,1,0,10000,8,55.00,Transporta AM,EXP
+69300000,69399999,Roraima,0,1,0,10000,9,62.00,Transporta RR,EXP
+66000000,68899999,Para,0,1,0,10000,7,48.00,Transporta PA,EXP
+78000000,78899999,Mato Grosso,0,1,0,10000,6,44.00,Transporta MT,EXP
+69000000,69500000,CROSS AM+RR,0,1,0,10000,8,99.00,Transporta BAD,EXP
+78900000,78950000,GAP MT-MS,0,1,0,10000,5,10.00,Transporta GAP,EXP
+40000000,48999999,Bahia,0,1,0,10000,5,30.00,Transporta BA,EXP

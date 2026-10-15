@@ -1,0 +1,48 @@
+{
+  "_meta": {
+    "description": "Fasce CEP (8 cifre) per UF. Valori numerici inclusivi senza formattazione (01000-000 = 1000000).",
+    "sources": [
+      "Correios — Busca Faixa CEP por UF/Localidade: https://buscacepinter.correios.com.br/app/faixa_cep_uf_localidade/index.php",
+      "Rua CEP — Faixa de CEP por estado (DF/GO a due tratti, AM escluso RR): https://www.ruacep.com.br/guias/postais/faixa-de-cep-por-estado/",
+      "Bring e-commerce — Faixas de CEP por estado e região: https://bring.com.br/suporte/?knowledgebase=faixas-de-cep-por-estado-e-regiao",
+      "OSINT Brazuca — regex CEP per UF: https://fellipematos.github.io/osint-brazuca-mkdocs/Regex/tab/"
+    ],
+    "notes": [
+      "DF e GO hanno due tratti intercalati nella regione postale 7.",
+      "RR (69300000–69399999) è interno all'intervallo storico di AM; AM è modellato come due tratti esclusi RR.",
+      "Queste fasce NON sono state riscaricate live dai Correios in questa sessione: vanno riconfermate sul tool ufficiale prima della produzione."
+    ]
+  },
+  "ranges": [
+    { "uf": "SP", "from": 1000000, "to": 19999999 },
+    { "uf": "RJ", "from": 20000000, "to": 28999999 },
+    { "uf": "ES", "from": 29000000, "to": 29999999 },
+    { "uf": "MG", "from": 30000000, "to": 39999999 },
+    { "uf": "BA", "from": 40000000, "to": 48999999 },
+    { "uf": "SE", "from": 49000000, "to": 49999999 },
+    { "uf": "PE", "from": 50000000, "to": 56999999 },
+    { "uf": "AL", "from": 57000000, "to": 57999999 },
+    { "uf": "PB", "from": 58000000, "to": 58999999 },
+    { "uf": "RN", "from": 59000000, "to": 59999999 },
+    { "uf": "CE", "from": 60000000, "to": 63999999 },
+    { "uf": "PI", "from": 64000000, "to": 64999999 },
+    { "uf": "MA", "from": 65000000, "to": 65999999 },
+    { "uf": "PA", "from": 66000000, "to": 68899999 },
+    { "uf": "AP", "from": 68900000, "to": 68999999 },
+    { "uf": "AM", "from": 69000000, "to": 69299999 },
+    { "uf": "RR", "from": 69300000, "to": 69399999 },
+    { "uf": "AM", "from": 69400000, "to": 69899999 },
+    { "uf": "AC", "from": 69900000, "to": 69999999 },
+    { "uf": "DF", "from": 70000000, "to": 72799999 },
+    { "uf": "GO", "from": 72800000, "to": 72999999 },
+    { "uf": "DF", "from": 73000000, "to": 73699999 },
+    { "uf": "GO", "from": 73700000, "to": 76799999 },
+    { "uf": "RO", "from": 76800000, "to": 76999999 },
+    { "uf": "TO", "from": 77000000, "to": 77999999 },
+    { "uf": "MT", "from": 78000000, "to": 78899999 },
+    { "uf": "MS", "from": 79000000, "to": 79999999 },
+    { "uf": "PR", "from": 80000000, "to": 87999999 },
+    { "uf": "SC", "from": 88000000, "to": 89999999 },
+    { "uf": "RS", "from": 90000000, "to": 99999999 }
+  ]
+}

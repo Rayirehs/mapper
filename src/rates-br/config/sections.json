@@ -1,0 +1,43 @@
+{
+  "_meta": {
+    "description": "Mappa UF → sezione di progetto (NON ufficiale IBGE). Modificabile senza toccare il codice.",
+    "country": "BR",
+    "collections": {
+      "nord": "rates_nord",
+      "sud": "rates_sud",
+      "est": "rates_est",
+      "ovest": "rates_ovest"
+    },
+    "proposal_status": "PENDING_TECH_LEAD_CONFIRMATION",
+    "note": "Divisione a quattro sezioni di progetto; l'IBGE usa cinque regioni. Sostituire dopo conferma tech lead."
+  },
+  "uf_to_section": {
+    "AP": "nord",
+    "PA": "nord",
+    "RR": "nord",
+    "GO": "sud",
+    "MS": "sud",
+    "PR": "sud",
+    "RJ": "sud",
+    "RS": "sud",
+    "SC": "sud",
+    "SP": "sud",
+    "AL": "est",
+    "BA": "est",
+    "CE": "est",
+    "ES": "est",
+    "MA": "est",
+    "MG": "est",
+    "PB": "est",
+    "PE": "est",
+    "PI": "est",
+    "RN": "est",
+    "SE": "est",
+    "TO": "est",
+    "DF": "est",
+    "AC": "ovest",
+    "AM": "ovest",
+    "MT": "ovest",
+    "RO": "ovest"
+  }
+}

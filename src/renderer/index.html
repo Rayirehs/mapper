@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSV Mapper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <h1>CSV Mapper</h1>
+            <p>Key + content hash · Tariffe Brasile</p>
+          </div>
+        </div>
+
+        <nav class="nav-tabs" aria-label="Sezioni">
+          <button type="button" class="nav-tab active" data-view="mapper" id="tabMapper">CSV Mapper</button>
+          <button type="button" class="nav-tab" data-view="rates" id="tabRates">Tariffe BR</button>
+        </nav>
+
+        <div id="statusPill" class="status-pill ready" data-state="ready">Ready</div>
+      </header>
+
+      <!-- ========== VIEW: CSV Mapper ========== -->
+      <div class="shell view" id="viewMapper">
+        <aside class="sidebar">
+          <div id="dropZone" class="dropzone" tabindex="0" role="button" aria-label="Open CSV file">
+            <div class="dropzone-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <path
+                  d="M20 8v16m0 0l-6-6m6 6l6-6M8 28h24"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <strong>Open CSV file</strong>
+            <span>Drop here or browse · max 2 GB</span>
+            <button id="browseBtn" class="btn btn-primary" type="button">Browse…</button>
+          </div>
+
+          <section class="panel file-panel" id="filePanel" hidden>
+            <h2>File</h2>
+            <dl class="meta">
+              <div>
+                <dt>Name</dt>
+                <dd id="fileName">—</dd>
+              </div>
+              <div>
+                <dt>Size</dt>
+                <dd id="fileSize">—</dd>
+              </div>
+              <div>
+                <dt>Rows</dt>
+                <dd id="fileRows">—</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="panel progress-panel" id="progressPanel" hidden>
+            <div class="progress-head">
+              <h2>Progress</h2>
+              <span id="progressLabel">0%</span>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <div id="progressBar" class="progress-bar"></div>
+            </div>
+            <p id="progressDetail" class="progress-detail">Waiting…</p>
+          </section>
+
+          <div class="actions">
+            <button id="processBtn" class="btn btn-primary" type="button" disabled>Process</button>
+            <button id="exportBtn" class="btn btn-secondary" type="button" disabled>Export CSV</button>
+            <button id="cancelBtn" class="btn btn-ghost" type="button" disabled>Cancel</button>
+          </div>
+        </aside>
+
+        <main class="main">
+          <div id="emptyState" class="empty">
+            <div class="empty-art" aria-hidden="true"></div>
+            <h2>Load a CSV to begin</h2>
+            <p>Each row gets a key hash (identity) and a content hash (payload). Streaming keeps memory low for multi-million-row files.</p>
+          </div>
+
+          <div id="tableWrap" class="table-wrap" hidden>
+            <div class="table-toolbar">
+              <span id="tableSummary">0 rows</span>
+              <label class="page-size">
+                Page size
+                <select id="pageSize">
+                  <option value="50">50</option>
+                  <option value="100" selected>100</option>
+                  <option value="250">250</option>
+                  <option value="500">500</option>
+                </select>
+              </label>
+            </div>
+            <div id="tableScroll" class="table-scroll">
+              <table>
+                <thead id="tableHead"></thead>
+                <tbody id="tableBody"></tbody>
+              </table>
+            </div>
+            <div class="pager">
+              <button id="prevPage" class="btn btn-ghost" type="button" disabled>Previous</button>
+              <span id="pageInfo">Page 1</span>
+              <button id="nextPage" class="btn btn-ghost" type="button" disabled>Next</button>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <!-- ========== VIEW: Tariffe Brasile ========== -->
+      <div class="shell view" id="viewRates" hidden>
+        <aside class="sidebar">
+          <div id="ratesDropZone" class="dropzone" tabindex="0" role="button" aria-label="Apri CSV tariffe Brasile">
+            <div class="dropzone-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <path
+                  d="M20 8v16m0 0l-6-6m6 6l6-6M8 28h24"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <strong>CSV tariffe BR</strong>
+            <span>from_zip · to_zip · revenue · servizio</span>
+            <button id="ratesBrowseBtn" class="btn btn-primary" type="button">Browse…</button>
+          </div>
+
+          <section class="panel file-panel" id="ratesFilePanel" hidden>
+            <h2>File</h2>
+            <dl class="meta">
+              <div>
+                <dt>Nome</dt>
+                <dd id="ratesFileName">—</dd>
+              </div>
+              <div>
+                <dt>Size</dt>
+                <dd id="ratesFileSize">—</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="panel progress-panel" id="ratesProgressPanel" hidden>
+            <div class="progress-head">
+              <h2>Import</h2>
+              <span id="ratesProgressLabel">0%</span>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <div id="ratesProgressBar" class="progress-bar"></div>
+            </div>
+            <p id="ratesProgressDetail" class="progress-detail">In attesa…</p>
+          </section>
+
+          <section class="panel" id="ratesMetricPanel" hidden>
+            <h2>Metrica heatmap</h2>
+            <div class="metric-toggle" role="group" aria-label="Metrica">
+              <button type="button" class="metric-btn active" data-metric="count" id="metricCount">Righe</button>
+              <button type="button" class="metric-btn" data-metric="revenueAvg" id="metricRevenue">Revenue media</button>
+            </div>
+          </section>
+
+          <section class="panel" id="ratesSectionPanel" hidden>
+            <h2>Per sezione</h2>
+            <div id="ratesSectionBars" class="section-bars"></div>
+          </section>
+
+          <section class="panel" id="ratesSyncPanel" hidden>
+            <h2>Sync incrementale</h2>
+            <p id="ratesSyncSummary" class="sync-summary">—</p>
+            <div id="ratesSyncList" class="sync-list"></div>
+          </section>
+
+          <div class="actions">
+            <button id="ratesImportBtn" class="btn btn-primary" type="button" disabled>Carica &amp; sync</button>
+            <button id="ratesCancelBtn" class="btn btn-ghost" type="button" disabled>Annulla</button>
+            <button id="ratesOpenStateBtn" class="btn btn-secondary" type="button" disabled>Apri stato</button>
+          </div>
+        </aside>
+
+        <main class="main rates-main">
+          <div id="ratesEmpty" class="empty">
+            <div class="empty-art rates-empty-art" aria-hidden="true"></div>
+            <h2>Tariffe Brasile</h2>
+            <p>
+              Carica un CSV (anche ~1&nbsp;GB): le righe vanno in nord/sud/est/ovest.
+              Ogni sezione ha un <strong>section_hash</strong> — se non cambia, nessuno update.
+              Se cambia, il diff usa <strong>key_hash</strong> / <strong>content_hash</strong>
+              per added / changed / removed.
+            </p>
+          </div>
+
+          <div id="ratesHeatmapWrap" class="heatmap-wrap" hidden>
+            <div class="heatmap-toolbar">
+              <div>
+                <h2>Mappa sezioni</h2>
+                <p id="ratesSummary" class="heatmap-summary">—</p>
+              </div>
+              <div id="ratesLegend" class="map-section-legend" aria-label="Legenda sezioni"></div>
+            </div>
+
+            <div class="heatmap-body">
+              <div id="brazilMap" class="brazil-map"></div>
+              <aside class="heatmap-aside">
+                <div class="panel tip-panel" id="ratesHoverPanel">
+                  <h2>Dettaglio UF</h2>
+                  <p id="ratesHoverDetail" class="hover-detail">Passa il mouse su uno stato</p>
+                </div>
+                <div class="panel" id="ratesSectionTablePanel">
+                  <h2>Righe per sezione</h2>
+                  <div id="ratesSectionTable" class="section-table-wrap"></div>
+                </div>
+                <div class="panel" id="ratesDiscardPanel">
+                  <h2>Scarti</h2>
+                  <ul id="ratesDiscardList" class="discard-list"></ul>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <footer class="statusbar">
+        <span id="statRows">0 rows processed</span>
+        <span id="statSpeed">—</span>
+        <span id="statElapsed">0.0s</span>
+      </footer>
+    </div>
+    <script src="brazilStatesData.js"></script>
+    <script src="brazilMap.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

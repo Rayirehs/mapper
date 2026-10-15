@@ -1,0 +1,11 @@
+node_modules/
+dist/
+out/
+*.db
+*.db-wal
+*.db-shm
+sample.csv
+.DS_Store
+Thumbs.db
+.artifacts/
+stitch-output/
